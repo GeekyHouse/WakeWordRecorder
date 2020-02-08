@@ -1,0 +1,121 @@
+version: '3.7'
+
+services:
+  node:
+    container_name: wwr_node
+    image: itpoc/wwr-node:${APP_VERSION}
+    env_file: .env
+    build:
+      context: ./frontend
+      dockerfile: ../docker/node.Dockerfile
+      args:
+        - NODE_VERSION=${NODE_VERSION}
+    command:
+      - --version
+    volumes:
+      - ./frontend:/home/node/project
+
+  npm:
+    container_name: wwr_npm
+    image: itpoc/wwr-node:${APP_VERSION}
+    env_file: .env
+    entrypoint:
+      - npm
+    command:
+      - --version
+    volumes:
+      - ./frontend:/home/node/project
+
+  test:
+    container_name: wwr_test
+    image: itpoc/wwr-test:${APP_VERSION}
+    env_file: .env
+    build:
+      context: ./frontend
+      dockerfile: ../docker/test.Dockerfile
+      args:
+        - APP_VERSION=${APP_VERSION}
+    volumes:
+      - ./frontend:/home/node/project
+    expose:
+      - 9876
+
+  dev:
+    container_name: wwr_dev
+    image: itpoc/wwr-node:${APP_VERSION}
+    env_file: .env
+    networks:
+      main:
+        aliases:
+          - dev
+    entrypoint:
+      - npm
+    command:
+      - run
+      - ng
+      - serve
+      - --
+      - --host
+      - 0.0.0.0
+      - --disableHostCheck
+    volumes:
+      - ./frontend:/home/node/project
+
+  php:
+    container_name: wwr_php
+    image: itpoc/wwr_php:${APP_VERSION}
+    env_file: .env
+    build:
+      context: ./backend
+      dockerfile: ../docker/php.Dockerfile
+      args:
+        - PHP_VERSION=${PHP_VERSION}
+        - COMPOSER_VERSION=${COMPOSER_VERSION}
+    networks:
+      main:
+        aliases:
+          - php
+    volumes:
+      - ./backend:/var/www/html/backend
+      - ./sounds:/var/www/html/sounds
+    working_dir: /var/www/html/backend
+    user: ${UID}:${GID}
+
+  nginx:
+    container_name: wwr_nginx
+    image: itpoc/wwr_nginx:${APP_VERSION}
+    env_file: .env
+    build:
+      context: ./nginx
+      dockerfile: ../docker/nginx.Dockerfile
+      args:
+        - NGINX_VERSION=${NGINX_VERSION}
+    depends_on:
+      - php
+      - postgres
+    networks:
+      - main
+    volumes:
+      - ./backend:/var/www/html/backend
+      - ./frontend/dist/wwr:/var/www/html/frontend
+      - ./sounds:/var/www/html/sounds
+    expose:
+      - 81
+
+  postgres:
+    container_name: wwr_postgres
+    image: postgres:12.1
+    env_file: .env
+    environment:
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    networks:
+      main:
+        aliases:
+          - postgres
+    volumes:
+      - ./database:/var/lib/postgresql/data
+    user: ${UID}:${GID}
+
+networks:
+  main:
+    driver: bridge

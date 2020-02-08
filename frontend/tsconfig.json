@@ -1,0 +1,48 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "es2015",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2018",
+      "dom"
+    ],
+    "paths": {
+      "@components": ["src/app/components"],
+      "@components/*": ["src/app/components/*"],
+      "@environments": ["src/environments"],
+      "@environments/*": ["src/environments/*"],
+      "@guards": ["src/app/guards"],
+      "@guards/*": ["src/app/guards/*"],
+      "@interceptors": ["src/app/interceptors"],
+      "@interceptors/*": ["src/app/interceptors/*"],
+      "@managers": ["src/app/managers"],
+      "@managers/*": ["src/app/managers/*"],
+      "@models": ["src/app/models"],
+      "@models/*": ["src/app/models/*"],
+      "@pages": ["src/app/pages"],
+      "@pages/*": ["src/app/pages/*"],
+      "@pipes": ["src/app/pipes"],
+      "@pipes/*": ["src/app/pipes/*"],
+      "@resolvers": ["src/app/resolvers"],
+      "@resolvers/*": ["src/app/resolvers/*"],
+      "@services": ["src/app/services"],
+      "@services/*": ["src/app/services/*"]
+    }
+  },
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true
+  }
+}

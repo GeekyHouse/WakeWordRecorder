@@ -1,0 +1,14 @@
+resolver 127.0.0.11;
+
+server {
+  server_name _;
+
+  listen [::]:81 ipv6only=off;
+
+  error_log  /var/log/nginx/error.log;
+  access_log /var/log/nginx/access.log;
+
+  include conf.d/frontend.dev.inc.nginx;
+
+  include conf.d/backend.inc.nginx;
+}

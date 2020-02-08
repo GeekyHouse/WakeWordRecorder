@@ -1,0 +1,11 @@
+<div *ngFor="let wakeWord of wakeWords" style="border: 1px #000 solid">
+    <p [innerHTML]="wakeWord.label"></p>
+    <p><span [innerHTML]="wakeWord.countTrainingData"></span> entraînements</p>
+    <p><span [innerHTML]="wakeWord.countTrainingDataValidated"></span> entraînements validés</p>
+    <button id="btn-start-recording"
+            [disabled]="recordInProgress !== null"
+            (click)="startRecord(wakeWord.uuid)">Start Recording</button>
+    <button id="btn-stop-recording"
+            [disabled]="recordInProgress !== wakeWord.uuid"
+            (click)="stopRecord()">Stop Recording</button>
+</div>
