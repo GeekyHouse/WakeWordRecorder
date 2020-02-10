@@ -8,6 +8,8 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthenticationService, CookieService } from '@services';
 import { CallbackComponent, DocsComponent, HomeComponent, LogInComponent } from '@pages';
 import { MomentModule } from 'ngx-moment';
+import { ProgressCursorComponent, RecorderComponent } from '@components';
+import { PopInModule } from '@modules';
 
 @NgModule({
   declarations: [
@@ -15,13 +17,16 @@ import { MomentModule } from 'ngx-moment';
     HomeComponent,
     LogInComponent,
     CallbackComponent,
-    DocsComponent
+    DocsComponent,
+    ProgressCursorComponent,
+    RecorderComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    MomentModule
+    MomentModule,
+    PopInModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
@@ -29,6 +34,7 @@ import { MomentModule } from 'ngx-moment';
     AuthenticationService,
     CookieService
   ],
+  entryComponents: [RecorderComponent], // @TODO: ugly but needed to open the component on pop-in
   bootstrap: [AppComponent]
 })
 export class AppModule {

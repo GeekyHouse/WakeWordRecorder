@@ -1,11 +1,29 @@
-<div *ngFor="let wakeWord of wakeWords" style="border: 1px #000 solid">
+<div *ngFor="let wakeWord of wakeWords" style="margin-bottom: 25px;">
     <p [innerHTML]="wakeWord.label"></p>
-    <p><span [innerHTML]="wakeWord.countTrainingData"></span> entraînements</p>
-    <p><span [innerHTML]="wakeWord.countTrainingDataValidated"></span> entraînements validés</p>
-    <button id="btn-start-recording"
-            [disabled]="recordInProgress !== null"
-            (click)="startRecord(wakeWord.uuid)">Start Recording</button>
-    <button id="btn-stop-recording"
-            [disabled]="recordInProgress !== wakeWord.uuid"
-            (click)="stopRecord()">Stop Recording</button>
+    <app-progress-cursor
+            total="75"
+            [cursors]="[wakeWord.countTrainingData, wakeWord.countTrainingDataValidated]"
+            color="blue"
+            [label]="true"></app-progress-cursor>
+
+    <div class="detail">
+        <p class="text">
+            <b [innerHTML]="wakeWord.countTrainingData"></b> entraînements dont
+            <b [innerHTML]="wakeWord.countTrainingDataValidated"></b> validés<br>
+            <span>Objectif à atteindre : <b [innerHTML]="'75'"></b></span>
+        </p>
+
+        <div class="actions">
+            <button [disabled]="wakeWord.countTrainingDataValidated === wakeWord.countTrainingData"
+                    (click)="validateSamples(wakeWord.uuid)">Valider des enregistrements</button>
+            <button (click)="recordSamples(wakeWord.uuid)">Donner ma voix</button>
+        </div>
+    </div>
+
+<!--    <button id="btn-start-recording"-->
+<!--            [disabled]="recordInProgress !== null"-->
+<!--            (click)="startRecord(wakeWord.uuid)">Start Recording</button>-->
+<!--    <button id="btn-stop-recording"-->
+<!--            [disabled]="recordInProgress !== wakeWord.uuid"-->
+<!--            (click)="stopRecord()">Stop Recording</button>-->
 </div>

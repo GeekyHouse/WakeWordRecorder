@@ -52,8 +52,8 @@
   },
   "scripts": {
     "ng": "ng",
-    "start": "set-env && ng serve",
-    "build": "set-env && ng build --subresourceIntegrity=true",
+    "start": "ts-node set-env.ts && ng serve",
+    "build": "ts-node set-env.ts && ng build --subresourceIntegrity=true",
     "test": "ng test --browsers ChromeHeadlessCI",
     "lint": "ng lint",
     "e2e": "ng e2e",

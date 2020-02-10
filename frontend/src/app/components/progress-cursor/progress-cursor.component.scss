@@ -1,0 +1,50 @@
+.background {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  opacity: .2
+}
+
+.cursor {
+  position: absolute;
+  height: 100%;
+  top: 0;
+  opacity: .5;
+}
+
+.label {
+  position: absolute;
+  top: -25px;
+  width: 50px;
+  height: 25px;
+  line-height: 25px;
+  text-align: center;
+}
+
+.not-exceed {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  overflow: hidden;
+}
+
+.arrow-down {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #fff;
+  margin-left: 20px;
+  opacity: .75;
+}
+.arrow-up {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+
+  border-bottom: 5px solid black;
+}

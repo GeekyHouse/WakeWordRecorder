@@ -1,0 +1,27 @@
+:host {
+  flex: 1;
+}
+
+app-progress-cursor {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 15px;
+  border-radius: 15px;
+  overflow: hidden; // @TODO: breaks the label
+}
+
+.detail {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .text {
+    flex: 1;
+  }
+
+  .actions {
+    display: flex;
+    flex-direction: column;
+  }
+}

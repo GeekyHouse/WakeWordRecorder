@@ -1,0 +1,5 @@
+<p>recorder works!</p>
+<button (click)="startRecord()"
+        [disabled]="recordInProgress">Start</button>
+<button (click)="stopRecord()"
+        [disabled]="!recordInProgress">Stop</button>

@@ -1,0 +1,50 @@
+<!-- background -->
+<div [ngStyle]="{
+        'background-color': color
+     }" class="background"></div>
+
+<!-- bar -->
+<div *ngFor="let cursor of cursors" [ngStyle]="{
+        'width.%': (cursor * 100 / total),
+        'background-color': color
+     }"
+     class="cursor not-exceed">
+</div>
+
+<ng-container *ngIf="label">
+    <!-- label -->
+    <div *ngFor="let cursor of cursors" [ngStyle]="{
+            'left': 'calc('+(cursor * 100 / total)+'% - 25px)',
+            'color': color
+         }"
+         class="label">
+        <span [innerHTML]="cursor"></span>
+    </div>
+
+    <!-- 100% label -->
+    <div [ngStyle]="{
+            'left': 'calc(100% - 25px)',
+            'color': color
+         }"
+         class="label">
+        <span [innerHTML]="total"></span>
+    </div>
+
+    <!-- arrow -->
+    <div *ngFor="let cursor of cursors" class="not-exceed">
+        <div [ngStyle]="{
+        'left': 'calc('+(cursor * 100 / total)+'% - 25px)',
+        'color': color,
+        'border-top-color': color
+     }" class="arrow-down"></div>
+    </div>
+
+    <!-- 100% arrow -->
+    <div class="not-exceed">
+        <div [ngStyle]="{
+        'left': 'calc(100% - 25px)',
+        'color': color,
+        'border-top-color': color
+     }" class="arrow-down"></div>
+    </div>
+</ng-container>

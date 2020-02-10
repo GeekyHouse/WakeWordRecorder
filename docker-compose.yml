@@ -19,6 +19,8 @@ services:
     container_name: wwr_npm
     image: itpoc/wwr-node:${APP_VERSION}
     env_file: .env
+    depends_on:
+      - node
     entrypoint:
       - npm
     command:
@@ -30,6 +32,8 @@ services:
     container_name: wwr_test
     image: itpoc/wwr-test:${APP_VERSION}
     env_file: .env
+    depends_on:
+      - node
     build:
       context: ./frontend
       dockerfile: ../docker/test.Dockerfile
@@ -44,6 +48,8 @@ services:
     container_name: wwr_dev
     image: itpoc/wwr-node:${APP_VERSION}
     env_file: .env
+    depends_on:
+      - node
     networks:
       main:
         aliases:
