@@ -33,7 +33,7 @@ export class CallbackComponent implements OnInit, OnDestroy {
       }))
       .subscribe(
         (user: User) => {
-          this.message = `Bienvenue ${user.email} !`;
+          this.message = `Bienvenue ${user.getPublicName()} !`;
           this.redirect = true;
           this.startInterval();
         },

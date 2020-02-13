@@ -11,4 +11,8 @@ export class User {
 
   constructor() {
   }
+
+  public getPublicName() {
+    return this.name || this.pseudonym || this.email;
+  }
 }
