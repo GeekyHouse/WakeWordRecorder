@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+use App\Application\Actions\TrainingData\TrainingDataGetMultipleAction;
 use App\Application\Actions\Auth\{GetCurrentUserAction};
 use App\Application\Actions\OAuth\{FacebookAction,
     FacebookCallbackAction,
@@ -34,6 +35,10 @@ return function (App $app) {
         $group->group('/wake-word', function (Group $group) {
             $group->get('/', WakeWordGetMultipleAction::class);
             $group->get('/{uuid}', WakeWordGetOneAction::class);
+        });
+
+        $group->group('/training-data', function (Group $group) {
+            $group->get('/', TrainingDataGetMultipleAction::class);
         });
 
         $group->group('/auth', function (Group $group) {

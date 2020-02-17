@@ -8,7 +8,7 @@ use App\Domain\User\User;
 use App\Domain\WakeWord\WakeWord;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation\{ExclusionPolicy, Expose};
+use JMS\Serializer\Annotation\{ExclusionPolicy, Expose, Groups};
 use Ramsey\Uuid\UuidInterface;
 
 /**
@@ -23,6 +23,7 @@ class TrainingData extends AbstractModel
      * @var UuidInterface
      *
      * @Expose
+     * @Groups({"short"})
      * @ORM\Id
      * @ORM\Column(type="uuid", unique=true)
      * @ORM\GeneratedValue(strategy="CUSTOM")
@@ -41,6 +42,7 @@ class TrainingData extends AbstractModel
      * @var boolean
      *
      * @Expose
+     * @Groups({"short"})
      * @ORM\Column(type="boolean", options={"default" = 0})
      */
     private bool $is_validated;
@@ -48,6 +50,8 @@ class TrainingData extends AbstractModel
     /**
      * @var DateTime
      *
+     * @Expose
+     * @Groups({"short"})
      * @ORM\Column(type="datetime", length=255, nullable=false)
      */
     private DateTime $created;
@@ -55,6 +59,8 @@ class TrainingData extends AbstractModel
     /**
      * @var DateTime
      *
+     * @Expose
+     * @Groups({"short"})
      * @ORM\Column(type="datetime", length=255, nullable=false)
      */
     private DateTime $updated;
@@ -71,6 +77,7 @@ class TrainingData extends AbstractModel
      * @var WakeWord
      *
      * @Expose
+     * @Groups({"short"})
      * @ORM\ManyToOne(targetEntity="App\Domain\WakeWord\WakeWord", inversedBy="training_data")
      * @ORM\JoinColumn(name="wake_word_uuid", referencedColumnName="uuid")
      */
