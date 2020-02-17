@@ -1,8 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { WakeWordService, WakeWordWithCount } from '@services';
-import { interval, Subscription } from 'rxjs';
-import { PopInService } from '@modules/pop-in/services/pop-in.service';
-import { RecorderComponent } from '@components';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -15,13 +13,12 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   private refreshWakeWordSubscription: Subscription;
 
-  constructor(private wakeWordService: WakeWordService,
-              private popInService: PopInService) {
+  constructor(private wakeWordService: WakeWordService) {
   }
 
   ngOnInit() {
     this.fetchWakeWords();
-    const refreshWakeWordsInterval = interval(5000);
+    // const refreshWakeWordsInterval = interval(5000);
     // this.refreshWakeWordSubscription = refreshWakeWordsInterval.subscribe(val => {
     //   this.fetchWakeWords();
     // });
@@ -31,32 +28,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (this.refreshWakeWordSubscription) {
       this.refreshWakeWordSubscription.unsubscribe();
     }
-  }
-
-  public validateSamples(wakeWordUuid: string) {
-    const ref = this.popInService.open(RecorderComponent, {
-      data: {
-        wakeWordUuid
-      }
-    });
-    const sub = ref.afterClosed.subscribe(result => {
-      console.log('Dialog closed', result);
-      sub.unsubscribe();
-      this.fetchWakeWords();
-    });
-  }
-
-  public recordSamples(wakeWordUuid: string) {
-    const ref = this.popInService.open(RecorderComponent, {
-      data: {
-        wakeWordUuid
-      }
-    });
-    const sub = ref.afterClosed.subscribe(result => {
-      console.log('Dialog closed', result);
-      sub.unsubscribe();
-      this.fetchWakeWords();
-    });
   }
 
   private fetchWakeWords() {

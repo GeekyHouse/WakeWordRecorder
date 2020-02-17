@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RecorderComponent } from './recorder.component';
+import { ModalViewComponent } from './modal-view.component';
 
-describe('RecorderViewComponent', () => {
-  let component: RecorderComponent;
-  let fixture: ComponentFixture<RecorderComponent>;
+describe('ModalViewComponent', () => {
+  let component: ModalViewComponent;
+  let fixture: ComponentFixture<ModalViewComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RecorderComponent ]
+      declarations: [ ModalViewComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RecorderComponent);
+    fixture = TestBed.createComponent(ModalViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -15,23 +15,31 @@ export class LogInComponent implements OnInit {
   public facebookUrl: string;
 
   constructor(private route: ActivatedRoute,
-              private authenticationService: AuthenticationService) { }
+              private authenticationService: AuthenticationService) {
+  }
+
+  private static encodeURIComponent(url: string) {
+    return encodeURIComponent(url)
+      .replace('(', '%28')
+      .replace(')', '%29')
+      ;
+  }
 
   ngOnInit() {
     this.authenticationService.logout();
     this.route.paramMap
       .subscribe(params => {
-        const finalAppUrl = params.get('redirect_url') || '/';
-        const loginCallbackUrl = environment.HOST + '/log-in/callback;redirect_url=' + encodeURIComponent(finalAppUrl);
-        const githubCallbackUrl = environment.HOST + '/api/oauth/github/callback?redirect_url=' + encodeURIComponent(loginCallbackUrl);
-        this.githubUrl  = environment.GITHUB_OAUTH_HOST + '/authorize?';
+        console.log(params.get('redirect_url'));
+        const finalAppUrl = params.get('redirect_url') || '/home';
+        const loginCallbackUrl = environment.HOST + '/log-in/callback;redirect_url=' + LogInComponent.encodeURIComponent(finalAppUrl);
+        const githubCallbackUrl = environment.HOST + '/api/oauth/github/callback?redirect_url=' + LogInComponent.encodeURIComponent(loginCallbackUrl);
+        this.githubUrl = environment.GITHUB_OAUTH_HOST + '/authorize?';
         this.githubUrl += 'client_id=' + environment.GITHUB_API_CLIENT_ID + '&';
         this.githubUrl += 'scope=read:user&';
-        this.githubUrl += 'redirect_uri=' + encodeURIComponent(githubCallbackUrl);
+        this.githubUrl += 'redirect_uri=' + LogInComponent.encodeURIComponent(githubCallbackUrl);
 
-        this.googleUrl = environment.HOST + '/api/oauth/google?redirect_url=' + encodeURIComponent(loginCallbackUrl);
-        this.facebookUrl = environment.HOST + '/api/oauth/facebook?redirect_url=' + encodeURIComponent(loginCallbackUrl);
+        this.googleUrl = environment.HOST + '/api/oauth/google?redirect_url=' + LogInComponent.encodeURIComponent(loginCallbackUrl);
+        this.facebookUrl = environment.HOST + '/api/oauth/facebook?redirect_url=' + LogInComponent.encodeURIComponent(loginCallbackUrl);
       });
   }
-
 }

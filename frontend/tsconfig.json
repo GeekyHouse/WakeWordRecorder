@@ -21,6 +21,8 @@
     "paths": {
       "@components": ["src/app/components"],
       "@components/*": ["src/app/components/*"],
+      "@entities": ["src/app/entities"],
+      "@entities/*": ["src/app/entities/*"],
       "@environments": ["src/environments"],
       "@environments/*": ["src/environments/*"],
       "@guards": ["src/app/guards"],
@@ -29,6 +31,8 @@
       "@interceptors/*": ["src/app/interceptors/*"],
       "@managers": ["src/app/managers"],
       "@managers/*": ["src/app/managers/*"],
+      "@modals": ["src/app/modals"],
+      "@modals/*": ["src/app/modals/*"],
       "@models": ["src/app/models"],
       "@models/*": ["src/app/models/*"],
       "@modules": ["src/app/modules"],

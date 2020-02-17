@@ -8,8 +8,11 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthenticationService, CookieService } from '@services';
 import { CallbackComponent, DocsComponent, HomeComponent, LogInComponent } from '@pages';
 import { MomentModule } from 'ngx-moment';
-import { ProgressCursorComponent, RecorderComponent } from '@components';
+import { ModalViewComponent, ProgressCursorComponent, RecorderComponent } from '@components';
 import { PopInModule } from '@modules';
+import { CustomSerializer } from './custom.serializer';
+import { UrlSerializer } from '@angular/router';
+import { TrainingModalComponent } from '@modals';
 
 @NgModule({
   declarations: [
@@ -19,7 +22,9 @@ import { PopInModule } from '@modules';
     CallbackComponent,
     DocsComponent,
     ProgressCursorComponent,
-    RecorderComponent
+    ModalViewComponent,
+    RecorderComponent,
+    TrainingModalComponent
   ],
   imports: [
     BrowserModule,
@@ -32,9 +37,9 @@ import { PopInModule } from '@modules';
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
     AuthenticationService,
-    CookieService
+    CookieService,
+    {provide: UrlSerializer, useClass: CustomSerializer}
   ],
-  entryComponents: [RecorderComponent], // @TODO: ugly but needed to open the component on pop-in
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RecorderComponent } from './recorder.component';
+import { TrainingModalComponent } from './training.modal';
 
-describe('RecorderViewComponent', () => {
-  let component: RecorderComponent;
-  let fixture: ComponentFixture<RecorderComponent>;
+describe('TrainingModalComponent', () => {
+  let component: TrainingModalComponent;
+  let fixture: ComponentFixture<TrainingModalComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RecorderComponent ]
+      declarations: [ TrainingModalComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RecorderComponent);
+    fixture = TestBed.createComponent(TrainingModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

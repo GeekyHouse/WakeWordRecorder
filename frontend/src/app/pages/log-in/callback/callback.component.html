@@ -1,5 +1,5 @@
 <p [innerHTML]="message"></p>
 <p *ngIf="redirect">
     Vous allez être redirigé dans {{ redirectCounter }} seconde{{ redirectCounter > 1 ? 's' : '' }}<br>
-    ou <a [routerLink]="redirectUrl">cliquez-ici</a> si vous ne souhaitez pas attendre
+    ou <a [href]="[redirectUrl]">cliquez-ici</a> si vous ne souhaitez pas attendre
 </p>

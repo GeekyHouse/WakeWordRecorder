@@ -14,9 +14,12 @@
         </p>
 
         <div class="actions">
-            <button [disabled]="wakeWord.countTrainingDataValidated === wakeWord.countTrainingData"
-                    (click)="validateSamples(wakeWord.uuid)">Valider des enregistrements</button>
-            <button (click)="recordSamples(wakeWord.uuid)">Donner ma voix</button>
+            <button [disabled]="wakeWord.countTrainingDataValidated === wakeWord.countTrainingData">
+                Valider des enregistrements
+            </button>
+            <a [routerLink]="[ '/', { outlets: { modal: ['modal', 'recorder', wakeWord.uuid] } } ]">
+                Donner ma voix
+            </a>
         </div>
     </div>
 

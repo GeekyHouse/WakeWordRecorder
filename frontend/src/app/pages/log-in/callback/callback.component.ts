@@ -3,7 +3,7 @@ import { AuthenticationService } from '@services';
 import { User } from '@models';
 import { interval, Subscription } from 'rxjs';
 import { switchMap, take } from 'rxjs/operators';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, DefaultUrlSerializer, Router, UrlTree } from '@angular/router';
 
 @Component({
   selector: 'app-callback',
@@ -15,6 +15,7 @@ export class CallbackComponent implements OnInit, OnDestroy {
   public redirect = false;
   public redirectCounter: number;
   public redirectUrl: string;
+  public redirectParams = {};
   private redirectInterval: Subscription;
   private redirectTime = 5;
 
@@ -28,7 +29,13 @@ export class CallbackComponent implements OnInit, OnDestroy {
 
     this.route.paramMap
       .pipe(switchMap(params => {
-        this.redirectUrl = params.get('redirect_url') || '/';
+        const rawRedirectUrl = (params.get('redirect_url') || '/home')
+          .replace('%28', '(')
+          .replace('%29', ')');
+
+        this.redirectUrl = this.router.serializeUrl(this.router.parseUrl(rawRedirectUrl))
+          .replace('%28', '(')
+          .replace('%29', ')');
         return this.authenticationService.fetchUser();
       }))
       .subscribe(
@@ -57,7 +64,7 @@ export class CallbackComponent implements OnInit, OnDestroy {
         this.redirectCounter = this.redirectTime - data - 1;
       }, error => {
       }, () => {
-        this.router.navigate([this.redirectUrl]);
+        this.router.navigateByUrl(this.redirectUrl);
       });
   }
 

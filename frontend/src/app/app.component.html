@@ -89,7 +89,7 @@
     </svg>
     
   </a>
-  <a style="color: #fff" routerLink="/log-in" [innerHTML]="(user$ | async) ? 'Log out' : 'Sign in'"></a>
+  <a style="color: #fff" routerLink="/log-in" [innerHTML]="(user) ? 'Log out' : 'Sign in'"></a>
 </header>
 
 <div class="content">
@@ -116,3 +116,5 @@
 </svg>
 
 </div>
+
+<router-outlet name="modal"></router-outlet>

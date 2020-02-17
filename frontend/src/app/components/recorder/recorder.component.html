@@ -1,75 +1,63 @@
-<h2>Enregistrez 3 échantillons</h2>
-<div class="samples">
-    <div *ngFor="let record of records" class="sample">
-        <div *ngIf="!record.blob" class="recorder-container">
-            <button (click)="startRecord(record)"
-                    *ngIf="!record.inProgress"
-                    [disabled]="currentPlaying || (currentRecord && !record.inProgress)"
-                    class="round record">
-                <i class="mdi mdi-microphone mdi-36px"></i>
-            </button>
-            <div *ngIf="record.inProgress"
-                 class="visualizer">
-                <div #bar
-                     *ngFor="let i of [].constructor(64)"
-                     class="bar"></div>
-            </div>
-            <button (click)="stopRecord()"
-                    *ngIf="record.inProgress"
-                    class="round stop">
-                <i class="mdi mdi-microphone-off mdi-36px"></i>
-            </button>
-        </div>
-        <div *ngIf="record.blob && !record.uploadStatus" class="player-container">
-            <button (click)="playRecord(record)"
-                    *ngIf="currentPlaying !== record"
-                    [disabled]="currentRecord || (currentPlaying && currentPlaying !== record)"
-                    class="round play">
-                <i class="mdi mdi-play mdi-36px"></i>
-            </button>
-            <div *ngIf="currentPlaying === record"
-                 class="visualizer">
-                <div #bar
-                     *ngFor="let i of [].constructor(64)"
-                     class="bar"></div>
-            </div>
-            <button (click)="stopPlaying()"
-                    *ngIf="currentPlaying === record"
-                    class="round stop-playing">
-                <i class="mdi mdi-stop mdi-36px"></i>
-            </button>
-            <button (click)="removeRecord(record)"
-                    [disabled]="currentPlaying || currentRecord"
-                    class="round trash">
-                <i class="mdi mdi-trash-can mdi-18px"></i>
-            </button>
-        </div>
-        <div *ngIf="record.uploadStatus === 'upload'">
-            <div class="round upload" [ngStyle]="{'backgroundPositionY.%': record.uploadPercent}">
-                <i class="mdi mdi-cloud-upload mdi-36px"></i>
-            </div>
-        </div>
-        <div *ngIf="record.uploadStatus === 'download'">
-            <div class="round download">
-                <i class="mdi mdi-sync mdi-36px"></i>
-            </div>
-        </div>
-        <div *ngIf="record.uploadStatus === 'done'">
-            <div class="round done">
-                <i class="mdi mdi-check mdi-36px"></i>
-            </div>
-        </div>
-        <div *ngIf="record.uploadStatus === 'error'">
-            <div class="round error">
-                <i class="mdi mdi-exclamation mdi-36px"></i>
-            </div>
-        </div>
+<div *ngIf="!record.blob" class="recorder-container">
+    <button (click)="startRecord()"
+            *ngIf="!record.inProgress"
+            [disabled]="disabled"
+            class="round record">
+        <i class="mdi mdi-microphone mdi-36px"></i>
+    </button>
+    <div *ngIf="record.inProgress"
+         class="visualizer">
+        <div #bar
+             *ngFor="let i of [].constructor(64)"
+             class="bar"></div>
+    </div>
+    <button (click)="stopRecord()"
+            *ngIf="record.inProgress"
+            class="round stop">
+        <i class="mdi mdi-microphone-off mdi-36px"></i>
+    </button>
+</div>
+<div *ngIf="record.blob && !record.uploadStatus" class="player-container">
+    <button (click)="playRecord()"
+            *ngIf="!record.isPlaying"
+            [disabled]="disabled"
+            class="round play">
+        <i class="mdi mdi-play mdi-36px"></i>
+    </button>
+    <div *ngIf="record.isPlaying"
+         class="visualizer">
+        <div #bar
+             *ngFor="let i of [].constructor(64)"
+             class="bar"></div>
+    </div>
+    <button (click)="stopPlaying()"
+            *ngIf="record.isPlaying"
+            class="round stop-playing">
+        <i class="mdi mdi-stop mdi-36px"></i>
+    </button>
+    <button (click)="removeRecord()"
+            [disabled]="disabled"
+            class="round trash">
+        <i class="mdi mdi-trash-can mdi-18px"></i>
+    </button>
+</div>
+<div *ngIf="record.uploadStatus === 'upload'">
+    <div [ngStyle]="{'backgroundPositionY.%': record.uploadPercent}" class="round upload">
+        <i class="mdi mdi-cloud-upload mdi-36px"></i>
     </div>
 </div>
-
-<canvas #visualizer
-        height="255" style="width: 100%;height: 100px;"
-        width="600"></canvas>
-
-<button (click)="uploadRecords()"
-        [disabled]="!areAllFilled()">Envoyer</button>
+<div *ngIf="record.uploadStatus === 'download'">
+    <div class="round download">
+        <i class="mdi mdi-sync mdi-36px"></i>
+    </div>
+</div>
+<div *ngIf="record.uploadStatus === 'done'">
+    <div class="round done">
+        <i class="mdi mdi-check mdi-36px"></i>
+    </div>
+</div>
+<div *ngIf="record.uploadStatus === 'error'">
+    <div class="round error">
+        <i class="mdi mdi-exclamation mdi-36px"></i>
+    </div>
+</div>

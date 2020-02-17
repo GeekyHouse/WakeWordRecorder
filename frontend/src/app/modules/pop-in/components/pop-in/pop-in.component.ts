@@ -6,7 +6,7 @@ import {
   ComponentRef,
   OnDestroy,
   Type,
-  ViewChild
+  ViewChild, ViewRef
 } from '@angular/core';
 import { Subject } from 'rxjs';
 import { InsertionDirective } from '../../directives/insertion.directive';
@@ -32,7 +32,9 @@ export class PopInComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     this.loadChildComponent(this.childComponentType);
-    this.cd.detectChanges();
+    if (!(this.cd as ViewRef).destroyed) {
+      this.cd.detectChanges();
+    }
   }
 
   ngOnDestroy() {

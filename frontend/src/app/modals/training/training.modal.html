@@ -1,0 +1,20 @@
+<h2>Enregistrez 3 échantillons</h2>
+<div class="samples">
+    <div class="sample" *ngFor="let record of records">
+        <app-recorder [record]="record"
+                           [disabled]="(currentPlaying && currentPlaying !== record) || (currentRecord && currentRecord !== record)"
+                           ($startRecord)="onStartRecord(record, $event)"
+                           ($stopRecord)="onStopRecord(record)"
+                           ($startPlaying)="onStartPlaying(record, $event)"
+                           ($stopPlaying)="onStopPlaying(record)"
+        ></app-recorder>
+    </div>
+</div>
+
+
+<canvas #visualizer
+        height="255" style="width: 100%;height: 100px;"
+        width="600"></canvas>
+
+<button (click)="uploadRecords()"
+        [disabled]="!areAllFilled() || areAllSent()">Envoyer</button>
