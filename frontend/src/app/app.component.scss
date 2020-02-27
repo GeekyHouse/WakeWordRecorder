@@ -5,15 +5,55 @@
 }
 
 header {
-  height: 60px;
+  flex-direction: column;
   display: flex;
   align-items: center;
-  background-color: #1976d2;
+  padding: 0 4rem 3rem;
+  background: #3e92cc url('/assets/background-gradient-full.png');
+  background-size: cover;
   color: white;
   font-weight: 600;
 
-  img {
-    margin: 0 16px;
+  .actions {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 1rem 0;
+
+    a {
+      color: #fff;
+      flex: 1;
+      text-align: right;
+      text-decoration: underline;
+      font-size: 1.1rem;
+
+      i {
+        margin-right: 5px;
+      }
+    }
+  }
+  .logo {
+    width: 15%;
+    background: #fff;
+    border-radius: 50%;
+
+    img {
+      width: 100%;
+    }
+  }
+  h1 {
+    font-size: 2.25rem;
+    font-family: "Montserrat";
+    font-weight: lighter;
+    margin-top: 0;
+    margin-bottom: 0.1rem;
+  }
+  h2 {
+    font-size: 1.15rem;
+    font-family: "Montserrat";
+    font-weight: normal;
+    margin-bottom: 2rem;
+    opacity: 0.7;
   }
 
   #twitter-logo {
@@ -42,6 +82,7 @@ header {
     flex: 1;
     width: 100%;
     justify-content: center;
+    font-size: 1.1rem;
   }
 
   footer {
@@ -79,6 +120,53 @@ header {
           margin-right: 4px;
         }
       }
+    }
+  }
+}
+
+
+
+@media screen and (max-width: 42em) {
+  header {
+    padding: 0 2rem 1rem;
+
+    .actions {
+      a {
+        font-size: 1rem;
+      }
+    }
+    h1 {
+      font-size: 1.75rem;
+    }
+    h2 {
+      font-size: 1rem;
+    }
+  }
+  .content {
+    main {
+      font-size: 1rem;
+    }
+  }
+}
+@media screen and (min-width: 64em) {
+  header {
+    padding: 0 6rem 5rem;
+
+    .actions {
+      a {
+        font-size: 1.1rem;
+      }
+    }
+    h1 {
+      font-size: 3.25rem;
+    }
+    h2 {
+      font-size: 1.25rem;
+    }
+  }
+  .content {
+    main {
+      font-size: 1.1rem;
     }
   }
 }

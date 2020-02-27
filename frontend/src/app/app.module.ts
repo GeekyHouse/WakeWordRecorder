@@ -12,7 +12,9 @@ import { ModalViewComponent, ProgressCursorComponent, RecorderComponent } from '
 import { PopInModule } from '@modules';
 import { CustomSerializer } from './custom.serializer';
 import { UrlSerializer } from '@angular/router';
-import { TrainingModalComponent } from '@modals';
+import { TrainingModalComponent, ValidatorHelperModalComponent, ValidatorModalComponent } from '@modals';
+import { LoaderComponent } from '@components/loader/loader.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -24,10 +26,14 @@ import { TrainingModalComponent } from '@modals';
     ProgressCursorComponent,
     ModalViewComponent,
     RecorderComponent,
-    TrainingModalComponent
+    TrainingModalComponent,
+    ValidatorModalComponent,
+    ValidatorHelperModalComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
     MomentModule,

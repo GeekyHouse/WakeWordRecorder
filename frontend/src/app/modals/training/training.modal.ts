@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
-  selector: 'app-training',
+  selector: 'app-training-modal',
   templateUrl: './training.modal.html',
   styleUrls: ['./training.modal.scss']
 })

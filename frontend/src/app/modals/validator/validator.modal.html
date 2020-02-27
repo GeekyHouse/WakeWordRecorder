@@ -1,0 +1,51 @@
+<div *ngIf="trainingData"
+     class="title">
+    <h2>Valider l'enregistrement</h2>
+    <ol>
+        <li>Écoutez l'enregistrement du wake-word "<span [innerHTML]="trainingData.wakeWord.label"></span>"</li>
+        <li>Validez ou refusez-le <a [routerLink]="[ '/', { outlets: { modal: ['modal', 'validator', 'help'] } } ]"
+                                     class="record"><i class="mdi mdi-help-circle"></i></a></li>
+    </ol>
+</div>
+
+<app-loader *ngIf="!trainingData"></app-loader>
+
+<div *ngIf="trainingData">
+    <button (click)="play()"
+            *ngIf="!isPlaying"
+            class="round play">
+        <i class="mdi mdi-play mdi-36px"></i>
+    </button>
+    <button (click)="pause()"
+            *ngIf="isPlaying"
+            class="round pause">
+        <i class="mdi mdi-pause mdi-36px"></i>
+    </button>
+</div>
+
+<div *ngIf="trainingData"
+     class="canvas-container">
+    <app-loader style=""></app-loader>
+    <canvas #visualizer height="255" width="600"></canvas>
+</div>
+
+<div *ngIf="trainingData"
+     class="actions">
+    <button (click)="validate()"
+            [disabled]="!isListened"
+            class="accept">
+        <i class="mdi mdi-check mdi-24px"></i>
+        Valider
+    </button>
+    <button (click)="invalidate()"
+            [disabled]="!isListened"
+            class="refuse">
+        <i class="mdi mdi-close mdi-24px"></i>
+        Refuser
+    </button>
+    <button (click)="next()"
+            class="avoid">
+        <i class="mdi mdi-cancel mdi-18px"></i>
+        Passer
+    </button>
+</div>

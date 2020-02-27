@@ -1,8 +1,10 @@
 <div class="overlay" (click)="onOverlayClicked($event)">
-    <div class="dialog" (click)="onDialogClicked($event)">
+    <div class="dialog" (click)="onDialogClicked($event)" [@routeAnimations]="prepareRoute(outlet)">
         <div class="modal-header">
             <span class="close" (click)="closeModal($event)">&times;</span>
         </div>
-        <router-outlet></router-outlet>
+        <div class="modal-content">
+            <router-outlet #outlet="outlet"></router-outlet>
+        </div>
     </div>
 </div>

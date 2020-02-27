@@ -2,11 +2,17 @@ import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/co
 import { AuthenticationService } from '@services';
 import { Observable } from 'rxjs';
 import { User } from '@models';
+import { RouterOutlet } from '@angular/router';
+import { slideInAnimation } from './animations';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  animations: [
+    slideInAnimation
+    // animation triggers go here
+  ]
 })
 export class AppComponent implements OnInit, AfterViewInit {
   title = 'wwr';
@@ -28,5 +34,9 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     // this.user$ = this.authenticationService.currentUser;
+  }
+
+  prepareRoute(outlet: RouterOutlet) {
+    return outlet && outlet.activatedRouteData && outlet.activatedRouteData.animation;
   }
 }

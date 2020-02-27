@@ -1,10 +1,11 @@
 <div *ngFor="let wakeWord of wakeWords" style="margin-bottom: 25px;">
-    <p [innerHTML]="wakeWord.label"></p>
+    <p class="label" [innerHTML]="wakeWord.label"></p>
     <app-progress-cursor
-            total="75"
-            [cursors]="[wakeWord.countTrainingData, wakeWord.countTrainingDataValidated]"
-            color="blue"
-            [label]="true"></app-progress-cursor>
+            [countStart]="0"
+            [countEnd]="500"
+            [countTraining]="wakeWord.countTrainingData"
+            [countValidation]="wakeWord.countTrainingDataValidated"
+            [bubble]="true"></app-progress-cursor>
 
     <div class="detail">
         <p class="text">
@@ -14,11 +15,14 @@
         </p>
 
         <div class="actions">
-            <button [disabled]="wakeWord.countTrainingDataValidated === wakeWord.countTrainingData">
-                Valider des enregistrements
-            </button>
-            <a [routerLink]="[ '/', { outlets: { modal: ['modal', 'recorder', wakeWord.uuid] } } ]">
-                Donner ma voix
+            <a *ngIf="wakeWord.countTrainingDataValidated !== wakeWord.countTrainingData"
+               [routerLink]="[ '/', { outlets: { modal: ['modal', 'validator', wakeWord.uuid] } } ]"
+               class="validate">
+                <i class="mdi mdi-check"></i> Valider des enregistrements
+            </a>
+            <a [routerLink]="[ '/', { outlets: { modal: ['modal', 'recorder', wakeWord.uuid] } } ]"
+               class="record">
+                <i class="mdi mdi-microphone"></i> Donner ma voix
             </a>
         </div>
     </div>
@@ -29,4 +33,5 @@
 <!--    <button id="btn-stop-recording"-->
 <!--            [disabled]="recordInProgress !== wakeWord.uuid"-->
 <!--            (click)="stopRecord()">Stop Recording</button>-->
+    <hr>
 </div>

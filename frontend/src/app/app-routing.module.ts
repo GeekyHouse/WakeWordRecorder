@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '@guards';
 import { CallbackComponent as LogInCallbackComponent, DocsComponent, HomeComponent, LogInComponent } from '@pages';
 import { ModalViewComponent } from '@components/modal-view/modal-view.component';
-import { TrainingModalComponent } from '@modals';
+import { TrainingModalComponent, ValidatorHelperModalComponent, ValidatorModalComponent } from '@modals';
 
 
 const routes: Routes = [
@@ -17,11 +17,24 @@ const routes: Routes = [
     path: 'modal',
     outlet: 'modal',
     component: ModalViewComponent,
+    data: {animation: 'Modal'},
     children: [
       {
         path: 'recorder/:wakeWordUuid',
         component: TrainingModalComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
+        data: {animation: 'ModalMain'},
+      },
+      {
+        path: 'validator/help',
+        component: ValidatorHelperModalComponent,
+        data: {animation: 'ModalHelp'},
+      },
+      {
+        path: 'validator/:wakeWordUuid',
+        component: ValidatorModalComponent,
+        canActivate: [AuthGuard],
+        data: {animation: 'ModalMain'},
       }
     ]
   }

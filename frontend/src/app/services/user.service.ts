@@ -14,8 +14,10 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   public getCurrentUser() {
+    console.log('LETS GO');
     return this.http.get(environment.HOST + '/api/auth/me/user')
       .pipe(map((response: {statusCode: number, data: any}) => {
+        console.log('LETS INNER');
         const user = new User();
         user.uuid = response.data.uuid;
         user.name = response.data.name;

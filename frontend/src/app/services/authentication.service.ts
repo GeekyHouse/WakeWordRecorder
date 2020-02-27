@@ -23,19 +23,24 @@ export class AuthenticationService {
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
-  public get currentUserValue(): User {
-    // check token
+  public getToken(): string {
     const token = this.cookieService.get('x-token');
     if (!token) {
-      console.log('NO TOKEN');
-      this.logout();
-      return this.currentUserSubject.value;
+      return null;
     }
     const expires = JSON.parse(atob(token.split('.')[1])).exp;
     if (moment().unix() > expires) {
-      console.log('EXPIRED');
+      return null;
+    }
+    return token;
+  }
+
+  public get currentUserValue(): User {
+    // check token
+    const token = this.getToken();
+    if (!token) {
+      console.log('Bad token');
       this.logout();
-      return this.currentUserSubject.value;
     }
     // return user
     return this.currentUserSubject.value;

@@ -1,50 +1,19 @@
-<!-- background -->
-<div [ngStyle]="{
-        'background-color': color
-     }" class="background"></div>
-
-<!-- bar -->
-<div *ngFor="let cursor of cursors" [ngStyle]="{
-        'width.%': (cursor * 100 / total),
-        'background-color': color
-     }"
-     class="cursor not-exceed">
+<div class="container">
+    <p [innerHTML]="countStart" class="count start"></p>
+    <div>
+        <div *ngIf="bubble"
+             [ngStyle]="{ left: 'calc(' + (countTraining / countEnd * 100) + '% - 15px)' }"
+             class="bubble top">
+            <p [innerHTML]="countTraining"></p>
+        </div>
+        <div class="gutter">
+            <div [ngStyle]="{ width: (countTraining / countEnd * 100) + '%' }"></div>
+            <div [ngStyle]="{ width: (countValidation / countEnd * 100) + '%' }"></div>
+        </div>
+        <div *ngIf="bubble" [ngStyle]="{ left: 'calc(' + (countValidation / countEnd * 100) + '% - 15px)' }"
+             class="bubble bottom">
+            <p [innerHTML]="countValidation"></p>
+        </div>
+    </div>
+    <p [innerHTML]="countEnd" class="count end"></p>
 </div>
-
-<ng-container *ngIf="label">
-    <!-- label -->
-    <div *ngFor="let cursor of cursors" [ngStyle]="{
-            'left': 'calc('+(cursor * 100 / total)+'% - 25px)',
-            'color': color
-         }"
-         class="label">
-        <span [innerHTML]="cursor"></span>
-    </div>
-
-    <!-- 100% label -->
-    <div [ngStyle]="{
-            'left': 'calc(100% - 25px)',
-            'color': color
-         }"
-         class="label">
-        <span [innerHTML]="total"></span>
-    </div>
-
-    <!-- arrow -->
-    <div *ngFor="let cursor of cursors" class="not-exceed">
-        <div [ngStyle]="{
-        'left': 'calc('+(cursor * 100 / total)+'% - 25px)',
-        'color': color,
-        'border-top-color': color
-     }" class="arrow-down"></div>
-    </div>
-
-    <!-- 100% arrow -->
-    <div class="not-exceed">
-        <div [ngStyle]="{
-        'left': 'calc(100% - 25px)',
-        'color': color,
-        'border-top-color': color
-     }" class="arrow-down"></div>
-    </div>
-</ng-container>

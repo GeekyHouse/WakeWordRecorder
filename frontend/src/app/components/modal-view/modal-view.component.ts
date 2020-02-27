@@ -1,11 +1,16 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
+import { slideInAnimation } from '../../animations';
 
 @Component({
   selector: 'app-modal-view',
   templateUrl: './modal-view.component.html',
   styleUrls: ['./modal-view.component.scss'],
-  exportAs: 'modal'
+  exportAs: 'modal',
+  animations: [
+    slideInAnimation
+    // animation triggers go here
+  ]
 })
 export class ModalViewComponent {
 
@@ -27,5 +32,9 @@ export class ModalViewComponent {
 
   onDialogClicked($event: MouseEvent) {
     $event.stopPropagation();
+  }
+
+  prepareRoute(outlet: RouterOutlet) {
+    return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
   }
 }

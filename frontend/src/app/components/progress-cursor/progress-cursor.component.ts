@@ -1,21 +1,19 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-progress-cursor',
   templateUrl: './progress-cursor.component.html',
   styleUrls: ['./progress-cursor.component.scss']
 })
-export class ProgressCursorComponent implements OnInit {
+export class ProgressCursorComponent {
 
-  @Input() total: number;
-  @Input() cursors: number[];
-  @Input() color = '#f00';
-  @Input() label = false;
+  @Input() countStart: number;
+  @Input() countEnd: number;
+  @Input() countTraining: number;
+  @Input() countValidation: number;
+  @Input() bubble = false;
 
   constructor() {
-  }
-
-  ngOnInit() {
   }
 
 }
