@@ -5,6 +5,7 @@ namespace App\Application\Actions\WakeWord;
 
 use App\Application\Actions\Action;
 use App\Domain\TrainingData\TrainingData;
+use App\Domain\TrainingDataValidation\TrainingDataValidation;
 use App\Domain\WakeWord\WakeWord;
 use Doctrine\ORM\EntityManager;
 use Exception;
@@ -44,10 +45,13 @@ class WakeWordGetMultipleAction extends Action
         $query = $em->createQueryBuilder()
             ->select('w as wake_word')
             ->addSelect('count(t) as count_training_data')
-            ->addSelect('count(t2) as count_training_data_validated')
+            ->addSelect('count(tv.validated) as count_training_data_validated')
+                // ->addSelect('t.training_data_validations')
+                // ->addSelect('count(t.training_data_validations)')
             ->from(WakeWord::class, 'w')
             ->leftJoin(TrainingData::class, 't', 'WITH', 't.wake_word = w.uuid')
-            ->leftJoin(TrainingData::class, 't2', 'WITH', 't2.wake_word = w.uuid AND t2.is_validated = true')
+            // ->leftJoin(TrainingDataValidation::class, 'tv', 'WITH', 'tv.training_data = t.uuid AND tv.validated = true')
+            ->leftJoin(TrainingDataValidation::class, 'tv', 'WITH', 'tv.training_data = t.uuid AND tv.validated = true')
             ->groupBy('w')
             ->orderBy('w.label', 'ASC')
             ->getQuery()

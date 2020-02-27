@@ -108,6 +108,14 @@ class User extends AbstractModel
      */
     private Collection $training_data;
 
+    /**
+     * @var Collection
+     *
+     * @Expose
+     * @ORM\OneToMany(targetEntity="App\Domain\TrainingDataValidation\TrainingDataValidation", mappedBy="training_data")
+     */
+    private Collection $training_data_validations;
+
     public function __construct()
     {
         $this->training_data = new ArrayCollection();
@@ -299,6 +307,24 @@ class User extends AbstractModel
     public function getTrainingData(): Collection
     {
         return $this->training_data;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getTrainingDataValidations(): Collection
+    {
+        return $this->training_data_validations;
+    }
+
+    /**
+     * @param Collection $training_data_validations
+     * @return User
+     */
+    public function setTrainingDataValidations(Collection $training_data_validations): User
+    {
+        $this->training_data_validations = $training_data_validations;
+        return $this;
     }
 
     /**

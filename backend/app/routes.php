@@ -1,7 +1,9 @@
 <?php
 declare(strict_types=1);
 
-use App\Application\Actions\TrainingData\TrainingDataGetMultipleAction;
+use App\Application\Actions\TrainingData\{TrainingDataGetMultipleAction,
+    TrainingDataInvalidateAction,
+    TrainingDataValidateAction};
 use App\Application\Actions\Auth\{GetCurrentUserAction};
 use App\Application\Actions\OAuth\{FacebookAction,
     FacebookCallbackAction,
@@ -9,7 +11,7 @@ use App\Application\Actions\OAuth\{FacebookAction,
     GoogleAction,
     GoogleCallbackAction
 };
-use App\Application\Actions\Record\{DownloadAction, UploadAction};
+use App\Application\Actions\Record\{DownloadAction, DrawAction, UploadAction};
 use App\Application\Actions\WakeWord\WakeWordGetMultipleAction;
 use App\Application\Middleware\ForceAuthenticationMiddleware;
 use Psr\Http\Message\{ResponseInterface as Response, ServerRequestInterface as Request};
@@ -38,7 +40,9 @@ return function (App $app) {
         });
 
         $group->group('/training-data', function (Group $group) {
-            $group->get('/', TrainingDataGetMultipleAction::class);
+            $group->get('', TrainingDataGetMultipleAction::class);
+            $group->post('/validate/{trainingDataUuid}', TrainingDataValidateAction::class);
+            $group->post('/invalidate/{trainingDataUuid}', TrainingDataInvalidateAction::class);
         });
 
         $group->group('/auth', function (Group $group) {
@@ -48,6 +52,7 @@ return function (App $app) {
         $group->group('/record', function (Group $group) {
             $group->post('/upload', UploadAction::class);
             $group->get('/download/{trainingDataUuid}', DownloadAction::class);
+            $group->get('/draw/{trainingDataUuid}', DrawAction::class);
         })->add(ForceAuthenticationMiddleware::class);
     });
 

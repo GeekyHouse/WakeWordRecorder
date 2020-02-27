@@ -5,6 +5,7 @@ namespace App\Application\Actions\TrainingData;
 
 use App\Application\Actions\Action;
 use App\Domain\TrainingData\TrainingData;
+use App\Domain\TrainingDataValidation\TrainingDataValidation;
 use App\Domain\WakeWord\WakeWord;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManager;
@@ -39,7 +40,6 @@ class TrainingDataGetMultipleAction extends Action
 
         $filters = array_intersect_key($this->resolveQueryParam('filters', true, []), array_flip([
             'wake_word',
-            'is_validated'
         ]));
         $criteria = Criteria::create();
         foreach ($filters as $key => $value) {
@@ -51,7 +51,13 @@ class TrainingDataGetMultipleAction extends Action
             ->select('t as training_data')
             ->from(TrainingData::class, 't')
             ->innerJoin(WakeWord::class, 'w', Join::WITH, 't.wake_word = w.uuid')
+            ->leftJoin(TrainingDataValidation::class,
+                'tv',
+                Join::WITH,
+                'tv.training_data = t.uuid')
             ->addCriteria($criteria)
+            ->andHaving('count(tv.training_data) <= 0')
+            ->groupBy('t.uuid')
             ->orderBy('t.created', 'ASC');
         if ($maxPerPage) {
             $queryBuilder->setFirstResult(($page - 1) * $maxPerPage)

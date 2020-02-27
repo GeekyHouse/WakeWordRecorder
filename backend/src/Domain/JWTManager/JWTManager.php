@@ -13,7 +13,7 @@ class JWTManager
     protected EntityManager $entityManager;
 
     /** @var User|null $currentUser */
-    protected $currentUser = null;
+    protected ?User $currentUser = null;
 
     /**
      * JWTManager constructor.

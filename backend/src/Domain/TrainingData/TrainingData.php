@@ -4,16 +4,18 @@ declare(strict_types=1);
 namespace App\Domain\TrainingData;
 
 use App\Domain\AbstractModel;
+use App\Domain\TrainingDataValidation\TrainingDataValidation;
 use App\Domain\User\User;
 use App\Domain\WakeWord\WakeWord;
 use DateTime;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\{ExclusionPolicy, Expose, Groups};
 use Ramsey\Uuid\UuidInterface;
 
 /**
  * @ExclusionPolicy("all")
- * @ORM\Entity(repositoryClass="App\Domain\WakeWord\WakeWordRepository")
+ * @ORM\Entity(repositoryClass="App\Domain\TrainingData\TrainingDataRepository")
  * @ORM\Table(name="`training_data`")
  * @ORM\HasLifecycleCallbacks
  */
@@ -37,15 +39,6 @@ class TrainingData extends AbstractModel
      * @ORM\Column(type="string", length=255)
      */
     private string $file_name;
-
-    /**
-     * @var boolean
-     *
-     * @Expose
-     * @Groups({"short"})
-     * @ORM\Column(type="boolean", options={"default" = 0})
-     */
-    private bool $is_validated;
 
     /**
      * @var DateTime
@@ -83,9 +76,16 @@ class TrainingData extends AbstractModel
      */
     private WakeWord $wake_word;
 
+    /**
+     * @var Collection
+     *
+     * @Expose
+     * @ORM\OneToMany(targetEntity="App\Domain\TrainingDataValidation\TrainingDataValidation", mappedBy="training_data")
+     */
+    private Collection $training_data_validations;
+
     public function __construct()
     {
-        $this->setIsValidated(false);
     }
 
     /**
@@ -125,20 +125,20 @@ class TrainingData extends AbstractModel
     }
 
     /**
-     * @return bool
+     * @return Collection
      */
-    public function isIsValidated(): bool
+    public function getTrainingDataValidations(): Collection
     {
-        return $this->is_validated;
+        return $this->training_data_validations;
     }
 
     /**
-     * @param bool $is_validated
+     * @param Collection $training_data_validations
      * @return TrainingData
      */
-    public function setIsValidated(bool $is_validated): TrainingData
+    public function setTrainingDataValidations(Collection $training_data_validations): TrainingData
     {
-        $this->is_validated = $is_validated;
+        $this->training_data_validations = $training_data_validations;
         return $this;
     }
 

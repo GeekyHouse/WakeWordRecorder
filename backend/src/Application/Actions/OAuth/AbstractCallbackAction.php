@@ -80,7 +80,8 @@ abstract class AbstractCallbackAction extends Action
             ->withDomain($this->request->getUri()->getHost())
             ->withSecure($this->isSecure())
             ->withHttpOnly(false)
-            ->withSameSite(SameSite::strict());
+            //->withSameSite(SameSite::strict())
+        ;
         $this->response = FigResponseCookies::set($this->response, $setCookie);
     }
 
