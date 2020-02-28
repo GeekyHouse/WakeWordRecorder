@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output, Renderer2 } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { slideInAnimation } from '../../animations';
 
@@ -12,11 +12,20 @@ import { slideInAnimation } from '../../animations';
     // animation triggers go here
   ]
 })
-export class ModalViewComponent {
+export class ModalViewComponent implements OnInit, OnDestroy {
 
   @Output() modalClose: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private router: Router) {
+  constructor(private router: Router,
+              private renderer: Renderer2) {
+  }
+
+  ngOnInit(): void {
+    this.renderer.addClass(document.body, 'hide-scroll');
+  }
+
+  ngOnDestroy(): void {
+    this.renderer.removeClass(document.body, 'hide-scroll');
   }
 
   closeModal($event: MouseEvent) {
