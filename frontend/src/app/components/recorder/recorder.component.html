@@ -24,12 +24,6 @@
             class="round play">
         <i class="mdi mdi-play mdi-36px"></i>
     </button>
-    <div *ngIf="record.isPlaying"
-         class="visualizer">
-        <div #bar
-             *ngFor="let i of [].constructor(64)"
-             class="bar"></div>
-    </div>
     <button (click)="stopPlaying()"
             *ngIf="record.isPlaying"
             class="round stop-playing">

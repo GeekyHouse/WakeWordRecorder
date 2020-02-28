@@ -11,9 +11,6 @@ export class RecorderComponent implements OnDestroy {
 
   @Input() record: RecordEntity;
   @Input() disabled: boolean;
-  @ViewChildren('sound-vibe')
-  soundVibes: QueryList<ElementRef<HTMLDivElement>>;
-
   @Output() $startRecord: EventEmitter<MediaStream> = new EventEmitter<MediaStream>();
   @Output() $stopRecord: EventEmitter<void> = new EventEmitter<void>();
   @Output() $startPlaying: EventEmitter<MediaStream> = new EventEmitter<MediaStream>();

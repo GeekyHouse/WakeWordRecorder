@@ -18,7 +18,7 @@ export class TrainingModalComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
   // private visualizerContext: CanvasRenderingContext2D;
   // private visualizerAnimation: number;
-  private analyserNode: AnalyserNode;
+  // private analyserNode: AnalyserNode;
 
   constructor(private activatedRoute: ActivatedRoute) {
   }
