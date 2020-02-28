@@ -9,15 +9,15 @@ import { ActivatedRoute, Params } from '@angular/router';
   styleUrls: ['./training.modal.scss']
 })
 export class TrainingModalComponent implements OnInit, OnDestroy {
-  @ViewChild('visualizer', {static: true})
-  canvas: ElementRef<HTMLCanvasElement>;
+  // @ViewChild('visualizer', {static: true})
+  // canvas: ElementRef<HTMLCanvasElement>;
   public records: RecordEntity[] = [...Array(3)].map(() => new RecordEntity());
   public currentPlaying: RecordEntity;
   public currentRecord: RecordEntity;
   private wakeWordUuid: string;
   private subscriptions: Subscription[] = [];
-  private visualizerContext: CanvasRenderingContext2D;
-  private visualizerAnimation: number;
+  // private visualizerContext: CanvasRenderingContext2D;
+  // private visualizerAnimation: number;
   private analyserNode: AnalyserNode;
 
   constructor(private activatedRoute: ActivatedRoute) {
@@ -25,31 +25,31 @@ export class TrainingModalComponent implements OnInit, OnDestroy {
 
   public onStartRecord(record, $event: MediaStream) {
     this.currentRecord = record;
-    this.prepareVisualizer($event);
-    this.startVisualizer();
+    // this.prepareVisualizer($event);
+    // this.startVisualizer();
   }
 
   public onStopRecord(record) {
     this.currentRecord = null;
-    this.stopVisualizer();
+    // this.stopVisualizer();
   }
 
   public onStartPlaying(record, $event: MediaStream) {
     this.currentPlaying = record;
-    this.prepareVisualizer($event);
-    this.startVisualizer(3);
+    // this.prepareVisualizer($event);
+    // this.startVisualizer(3);
   }
 
   public onStopPlaying(record) {
     this.currentPlaying = null;
-    this.stopVisualizer();
+    // this.stopVisualizer();
   }
 
   public ngOnInit(): void {
     this.subscriptions.push(this.activatedRoute.params.subscribe((params: Params) => {
       this.wakeWordUuid = params.wakeWordUuid;
     }));
-    this.visualizerContext = this.canvas.nativeElement.getContext('2d');
+    // this.visualizerContext = this.canvas.nativeElement.getContext('2d');
   }
 
   public ngOnDestroy(): void {
@@ -91,7 +91,7 @@ export class TrainingModalComponent implements OnInit, OnDestroy {
     }
   }
 
-  private prepareVisualizer(stream: MediaStream) {
+  /*private prepareVisualizer(stream: MediaStream) {
     const audioContext = new AudioContext();
     const source = audioContext.createMediaStreamSource(stream);
     this.analyserNode = audioContext.createAnalyser();
@@ -134,7 +134,7 @@ export class TrainingModalComponent implements OnInit, OnDestroy {
       cancelAnimationFrame(this.visualizerAnimation);
     }
     this.visualizerContext.clearRect(0, 0, this.canvas.nativeElement.width, this.canvas.nativeElement.height);
-  }
+  }*/
 
   private handleUploadProgress(record: RecordEntity, xhr: XMLHttpRequest, event: ProgressEvent) {
     if (xhr.status && xhr.status !== 200) {
