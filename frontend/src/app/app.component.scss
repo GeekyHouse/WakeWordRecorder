@@ -84,12 +84,44 @@ header {
     justify-content: center;
     font-size: 1.1rem;
   }
+}
 
-  footer {
-    margin-top: 8px;
+footer {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 20px;
+  background: #434343;
+  padding: 16px;
+  color: #fff;
+
+  .links {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 100%;
+
+    > div {
+      display: flex;
+      flex-direction: column;
+
+      &.separator {
+        width: 1px;
+        background: #999;
+      }
+    }
+  }
+  .bottom {
     display: flex;
     align-items: center;
-    line-height: 20px;
+    justify-content: center;
+    padding-top: 30px;
+    flex-wrap: wrap;
+
+    > * {
+      margin: 10px 0;
+    }
 
     a {
       display: flex;
