@@ -1,6 +1,6 @@
 {
-    "name": "Wake Word Recorder",
-    "short_name": "Wake Word Recorder",
+    "name": "WakeWord Recorder",
+    "short_name": "WakeWord Recorder",
     "icons": [
         {
             "src": "/assets/icons/android-chrome-192x192.png",
